@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="text-editor">
+    <textarea #editor (keyup)="getText($event)"></textarea>
+  </div>
+  <div class="output">
+    <div class="content" [innerHTML]="parsedMarkedDown">
+    </div>
+  </div>
+</div>

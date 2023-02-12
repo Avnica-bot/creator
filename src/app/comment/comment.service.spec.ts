@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { MonogoService } from './monogo.service';
+import { CommentService } from './comment.service';
 
-describe('MonogoService', () => {
-  let service: MonogoService;
+describe('CommentService', () => {
+  let service: CommentService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(MonogoService);
+    service = TestBed.inject(CommentService);
   });
 
   it('should be created', () => {

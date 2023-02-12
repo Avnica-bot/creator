@@ -1,0 +1,11 @@
+table {
+  border-collapse: collapse;
+}
+tr {
+  padding: 12px 0;
+  border-bottom: 2px solid blue;
+}
+
+tr:nth-child(even) {
+  background: rgb(189, 250, 250);
+}

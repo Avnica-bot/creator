@@ -2,7 +2,8 @@ import { AfterViewInit, Component, ElementRef, OnInit, SecurityContext, ViewChil
 import { DomSanitizer } from "@angular/platform-browser";
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { marked } from 'marked';
-import { MonogoService } from '../monogo.service';
+import { PostsService } from '../posts.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-md-editor',
@@ -15,8 +16,10 @@ export class MdEditorComponent  implements OnInit, AfterViewInit  {
 
   parsedMarkedDown:string | null = "";
   name: string = "";
+
+  id$ = this.route.paramMap.pipe(map((params => params.get('id'))))
   
-  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private mongoService: MonogoService) { }
+  constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private mongoService: PostsService) { }
   ngAfterViewInit(): void {
     if (this.editor?.nativeElement)
       this.editor?.nativeElement.focus();
@@ -31,7 +34,7 @@ export class MdEditorComponent  implements OnInit, AfterViewInit  {
   ngOnInit(): void {
     this.route.params.subscribe(params => this.name = params['id']);
 
-    this.mongoService.createFile(this.name);
+    // this.mongoService.createFile(this.name);
   }
 
 }

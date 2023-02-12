@@ -1,0 +1,62 @@
+<p>booking works!</p>
+{{bookingForm.invalid | json}}
+{{bookingForm.valid | json}}
+{{bookingForm.value | json}}
+{{bookingForm.pristine | json}}
+{{bookingForm.dirty | json}}
+
+<form [formGroup]="bookingForm" (ngSubmit)="addBooking()">
+  <div>
+    <label>Room ID: <input matInput type="text" formControlName="roomId" placeholder="Room Id"></label>
+  </div>
+  <div>
+    {{bookingForm.get("guestEmail")?.errors | json}}
+    <label>Guest Email: <input type="text" formControlName="guestEmail" placeholder="Guest Email"></label>
+  </div>
+  <mat-form-field>
+    {{bookingForm.get("checkinDate")?.errors | json}}
+
+    <mat-label>Checkin Date</mat-label>
+    <input matInput [matDatepicker]="picker" type="date" formControlName="checkinDate" placeholder="Checkin Date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    {{bookingForm.get("checkoutDate")?.errors | json}}
+    <mat-label>Checkout Date</mat-label>
+    <input matInput [matDatepicker]="picker2" type="date" formControlName="checkoutDate" placeholder="Checkout Date">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2></mat-datepicker>
+  </mat-form-field>
+
+  <form [formGroupName]="'address'">
+    <label>Address<br>
+      <label>Address Line 1: <input matInput type="text" formControlName="addressLine1"
+          placeholder="Address Line 1"></label>
+      <label>Address Line 2: <input matInput type="text" formControlName="addressLine2"
+          placeholder="Address Line 2"></label>
+    </label>
+  </form>
+
+
+  <div formGroupName="guests">
+    <div *ngFor="let guest of guests.controls; let i=index;">
+      <label [formGroupName]="i">
+        <h3>Guest {{i}}</h3>
+        <label>
+          Guest Name: <input type="text" formControlName="guestName" placeholder="Guest Name" />
+        </label>
+        <label>
+          Guest Age: <input type="number" formControlName="age" placeholder="Guest Age" />
+        </label>
+      </label>
+    </div>
+
+    <button type="button" (click)="addGuest()">Add Guest</button>
+  </div>
+
+  <div>
+    <button [disabled]="bookingForm.invalid" type="submit">Book Room</button>
+  </div>
+
+</form>
